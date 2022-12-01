@@ -32,7 +32,7 @@
 .mean-container .mean-nav ul li a {
 	width: 100%;
 	padding: 10px 0;
-	color: var(--tp-common-black);
+	color: var(--tp-heading-primary);
 	border-top: 1px solid #ebebeb;
 	font-size: 14px;
     line-height: 1.5;
@@ -51,14 +51,14 @@
 	height: 30px;
 	width: 30px;
     line-height: 30px;
-	color: var(--tp-common-black);
+	color: var(--tp-heading-primary);
 	line-height: 30px;
 	top: 0;
 	font-weight: 400;
     &:hover{
         background: var(--tp-theme-1);
         color: var(--tp-common-white);
-        border-color: var(--tp-theme-1);
+        border-color: #ebebeb;
     }
 }
 
@@ -76,7 +76,7 @@
 
 
 .mean-container .mean-nav ul li a.mean-expand.mean-clicked{
-    color: var(--tp-common-black);
+    color: var(--tp-common-white);
 }
 .mean-container .mean-nav ul li a.mean-expand.mean-clicked i{
 	transform: rotate(45deg);
@@ -84,5 +84,5 @@
 	-moz-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
     -o-transform: rotate(45deg);
-    color: var(--tp-common-black);
+	color: var(--tp-heading-primary);
 }

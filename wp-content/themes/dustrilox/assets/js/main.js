@@ -13,13 +13,8 @@
 	////////////////////////////////////////////////////
 	// 01. PreLoader Js
 	windowOn.on('load',function() {
-		$("#loading").fadeOut(500);
+		$(".preloader").fadeOut(500);
 	});
-
-
-	$(".header__lang > ul > li").on('click',function(){
-	    $(".header__lang ul ul").slideToggle();
-	});	
 
 	////////////////////////////////////////////////////
 	// 02. Mobile Menu Js
@@ -29,25 +24,31 @@
 		meanExpand: ['<i class="fal fa-plus"></i>'],
 	});
 
-	////////////////////////////////////////////////////
-	// 03. Sidebar Js
-	$(".offcanvas-toggle-btn").on("click", function () {
-		$(".offcanvas__area").addClass("opened");
-		$(".body-overlay").addClass("opened");
-	});
-	$(".offcanvas__close-btn").on("click", function () {
-		$(".offcanvas__area").removeClass("opened");
-		$(".body-overlay").removeClass("opened");
+	///////////////////////////////////////////////////
+	// 02. Mobile Menu 2 Js
+	$('#mobile-menu-2').meanmenu({
+		meanMenuContainer: '.mobile-menu-2',
+		meanScreenWidth: "1199",
+		meanExpand: ['<i class="fal fa-plus"></i>'],
 	});
 
+	////////////////////////////////////////////////////
+    // 03. Sidebar Js
+	$(".sidebar-toggle-btn").on("click", function () {
+		$(".sidebar__area").addClass("sidebar-opened");
+		$(".body-overlay").addClass("opened");
+	});
+	$(".sidebar__close-btn").on("click", function () {
+		$(".sidebar__area").removeClass("sidebar-opened");
+		$(".body-overlay").removeClass("opened");
+	});
 
 	////////////////////////////////////////////////////
 	// 04. Body overlay Js
 	$(".body-overlay").on("click", function () {
-		$(".offcanvas__area").removeClass("opened");
+		$(".sidebar__area").removeClass("sidebar-opened");
 		$(".body-overlay").removeClass("opened");
 	});
-
 
 	////////////////////////////////////////////////////
 	// 05. Search Js
@@ -57,7 +58,6 @@
 	$(".search-close-btn").on("click", function () {
 		$(".search__area").removeClass("opened");
 	});
-
 
 	////////////////////////////////////////////////////
 	// 06. Sticky Header Js
@@ -69,7 +69,6 @@
 			$("#header-sticky").addClass("header__sticky");
 		}
 	});
-
 
 	////////////////////////////////////////////////////
 	// 07. Data CSS Js
@@ -89,107 +88,47 @@
 	// 07. Nice Select Js
 	$('select').niceSelect();
 
-	////////////////////////////////////////////////////
-	// 08. slider__active Slider Js
-	if (jQuery(".slider__active").length > 0) {
-		let sliderActive1 = ".slider__active";
-		let sliderInit1 = new Swiper(sliderActive1, {
-			// Optional parameters
-			slidesPerView: 1,
-			slidesPerColumn: 1,
-			paginationClickable: true,
-			loop: true,
-			effect: 'fade',
-
-			autoplay: {
-				delay: 5000,
-			},
-
-			// If we need pagination
-			pagination: {
-				el: ".ain-slider-paginations",
-				// dynamicBullets: true,
-				clickable: false,
-			},
-
-			// Navigation arrows
-			navigation: {
-				nextEl: ".slider-button-next",
-				prevEl: ".slider-button-prev",
-			},
-
-			a11y: false,
-		});
-
-		function animated_swiper(selector, init) {
-			let animated = function animated() {
-				$(selector + " [data-animation]").each(function () {
-					let anim = $(this).data("animation");
-					let delay = $(this).data("delay");
-					let duration = $(this).data("duration");
-
-					$(this)
-						.removeClass("anim" + anim)
-						.addClass(anim + " animated")
-						.css({
-							webkitAnimationDelay: delay,
-							animationDelay: delay,
-							webkitAnimationDuration: duration,
-							animationDuration: duration,
-						})
-						.one(
-							"webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",
-							function () {
-								$(this).removeClass(anim + " animated");
-							}
-						);
-				});
-			};
-			animated();
-			// Make animated when slide change
-			init.on("slideChange", function () {
-				$(sliderActive1 + " [data-animation]").removeClass("animated");
-			});
-			init.on("slideChange", animated);
-		}
-
-		animated_swiper(sliderActive1, sliderInit1);
-	}
-
-
-	var sliderr = new Swiper('.active', {
-		slidesPerView: 1,
-		spaceBetween: 30,
-		loop: true,
-		pagination: {
-			el: ".testimonial-pagination",
-			clickable: true,
-			renderBullet: function (index, className) {
-			  return '<span class="' + className + '">' + '<button>'+(index + 1)+'</button>' + "</span>";
-			},
-		},
+	///////////////////////////////////////////////////
+	// 13. main Slider Js
+	var swiper = new Swiper(".main-slider-nav", {
+        spaceBetween: 0,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
 		breakpoints: {
-			'1200': {
+			550: {
+				slidesPerView: 2,
+			},
+			768: {
 				slidesPerView: 3,
 			},
-			'992': {
-				slidesPerView: 2,
+			1200: {
+				slidesPerView: 4,
 			},
-			'768': {
-				slidesPerView: 2,
-			},
-			'576': {
-				slidesPerView: 1,
-			},
-			'0': {
-				slidesPerView: 1,
-			},
+			1400: {
+				slidesPerView: 4,
+				}
+			}
+	});
+	var swiper2 = new Swiper(".main-slider", {
+		spaceBetween: 0,
+		effect: "fade",
+		loop: true,
+		autoplay: {
+			delay: 6000,
+		},
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev",
+		},
+		thumbs: {
+			swiper: swiper,
 		},
 	});
-
+	
 	///////////////////////////////////////////////////
 	// 13. Masonary Js
-	$(".testimonial__active").owlCarousel({
+	$(".package__slider").owlCarousel({
 		//add owl carousel in activation class
 		loop: true,
 		margin: 30,
@@ -197,8 +136,6 @@
 		navText: ['<button class="nav-left"><i class="far fa-angle-left"></i></button>', '<button class="nav-right"><i class="far fa-angle-right"></i></button>'],
 		nav: false,
 		dots: true,
-		slideTransition: 'fadeOutLeft',
-		smartSpeed: 300,
 		responsive: {
 			0: {
 				items: 1
@@ -210,62 +147,9 @@
 				items: 3
 			},
 			1200: {
-				items: 3
+				items: 4
 			}
 		}
-	});
-
-
-	// course slider
-	var swiper = new Swiper('.course__slider', {
-		spaceBetween: 30,
-		slidesPerView: 2,
-		breakpoints: {  
-			'768': {
-				slidesPerView: 2,
-			},
-			'576': {
-				slidesPerView: 1,
-			},
-			'0': {
-				slidesPerView: 1,
-			},
-		},
-		pagination: {
-			el: '.swiper-pagination',
-			clickable: true,
-		},
-	});
-
-	var postboxSlider = new Swiper('.postbox__slider', {
-		slidesPerView: 1,
-        spaceBetween: 0,
-		loop: true,
-		autoplay: {
-		  delay: 3000,
-		},
-		// Navigation arrows
-		navigation: {
-			nextEl: ".postbox-slider-button-next",
-			prevEl: ".postbox-slider-button-prev",
-		},
-		breakpoints: {  
-			'1200': {
-				slidesPerView: 1,
-			},
-			'992': {
-				slidesPerView: 1,
-			},
-			'768': {
-				slidesPerView: 1,
-			},
-			'576': {
-				slidesPerView: 1,
-			},
-			'0': {
-				slidesPerView: 1,
-			},
-		},
 	});
 
 	////////////////////////////////////////////////////
@@ -277,7 +161,7 @@
 			percentPosition: true,
 			masonry: {
 				// use outer width of grid-sizer for columnWidth
-				columnWidth: 1,
+				columnWidth: '.grid-item',
 			}
 		});
 
@@ -331,23 +215,6 @@
 		return false;
 	});
 
-	$(".cart-plus-minus").append('<div class="dec qtybutton">-</div><div class="inc qtybutton">+</div>');
-	$(".qtybutton").on("click", function () {
-		var $button = $(this);
-		var oldValue = $button.parent().find("input").val();
-		if ($button.text() == "+") {
-			var newVal = parseFloat(oldValue) + 1;
-		} else {
-			// Don't allow decrementing below zero
-			if (oldValue > 0) {
-				var newVal = parseFloat(oldValue) - 1;
-			} else {
-				newVal = 0;
-			}
-		}
-		$button.parent().find("input").val(newVal);
-	});
-
 	////////////////////////////////////////////////////
 	// 17. Show Login Toggle Js
 	$('#showlogin').on('click', function () {
@@ -393,6 +260,648 @@
 	$('.hover__active').on('mouseenter', function () {
 		$(this).addClass('active').parent().siblings().find('.hover__active').removeClass('active');
 	});
+
+	////////////////////////////////////////////////////
+	// 00. Brand-slider activation Js
+	if (jQuery(".brand__slider").length > 0) {
+		let brand__slider = new Swiper('.brand__slider', {
+			slidesPerView: 1,
+			spaceBetween: 30,
+			// direction: 'vertical',
+			loop: true,
+			autoplay: {
+					delay: 6000,
+			},
+			
+			// If we need pagination
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.bs-button-next',
+				prevEl: '.bs-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				550: {
+					slidesPerView: 3,
+				},
+				768: {
+					slidesPerView: 4,
+				},
+				1200: {
+					slidesPerView: 5,
+				},
+				1400: {
+					slidesPerView: 5,
+					}
+				}
+		});
+	}
+
+	////////////////////////////////////////////////////
+	// 00. Testimonial slider activation Js
+	if (jQuery(".testimonial__slider").length > 0) {
+		let testimonial__slider = new Swiper('.testimonial__slider', {
+			slidesPerView: 4,
+			spaceBetween: 50,
+			// direction: 'vertical',
+			loop: true,
+			autoplay: {
+					delay: 6000,
+				},
+			
+			// If we need pagination
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.bs-button-next',
+				prevEl: '.bs-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 2,
+				},
+				1200: {
+					slidesPerView: 3,
+				},
+				1400: {
+					slidesPerView: 4,
+					}
+				}
+		});
+	}
+
+	////////////////////////////////////////////////////
+	// 00. Team slider activation Js
+	if (jQuery(".team__slider").length > 0) {
+		let team__slider = new Swiper('.team__slider', {
+			slidesPerView: 5,
+			spaceBetween: 0,
+			// direction: 'vertical',
+			loop: false,
+			autoplay: {
+					delay: 6000,
+				},
+			
+			// If we need pagination
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.bs-button-next',
+				prevEl: '.bs-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 2,
+				},
+				768: {
+					slidesPerView: 2,
+				},
+				1200: {
+					slidesPerView: 4,
+				},
+				1400: {
+					slidesPerView: 5,
+					}
+				}
+		});
+	}
+
+	////////////////////////////////////////////////////
+	// 00. Services slider activation Js
+	if (jQuery(".services__slider").length > 0) {
+		let services__slide = new Swiper('.services__slider', {
+			slidesPerView: 3,
+			spaceBetween: 30,
+			// direction: 'vertical',
+			loop: true,
+			autoplay: {
+					delay: 6000,
+				},
+			
+			// If we need pagination
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.bs-button-next',
+				prevEl: '.bs-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 2,
+				},
+				1200: {
+					slidesPerView: 3,
+				},
+				1400: {
+					slidesPerView: 3,
+					}
+				}
+		});
+	}
+
+	////////////////////////////////////////////////////
+	// 00. banner__slider activation Js
+	if (jQuery(".banner__slider").length > 0) {
+		let banner__slider = new Swiper('.banner__slider', {
+			slidesPerView: 1,
+			spaceBetween: 0,
+			// direction: 'vertical',
+			loop: false,
+			autoplay: {
+					delay: 40000,
+				},
+			
+			// If we need pagination
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.bs-button-next',
+				prevEl: '.bs-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 1,
+				},
+				1200: {
+					slidesPerView: 1,
+				},
+				1400: {
+					slidesPerView: 1,
+					}
+				}
+		});
+	}
+
+	////////////////////////////////////////////////////
+	// 00. slider__active activation Js
+	if (jQuery(".slider__active").length > 0) {
+		let slider__active = new Swiper('.slider__active', {
+			slidesPerView: 1,
+			spaceBetween: 0,
+			// direction: 'vertical',
+			loop: true,
+			autoplay: {
+					delay: 4000,
+				},
+			
+			// If we need pagination
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 1,
+				},
+				1200: {
+					slidesPerView: 1,
+				},
+				1400: {
+					slidesPerView: 1,
+				}
+			}
+		});
+	}
+
+	////////////////////////////////////////////////////
+	// 00. project__slider-active Js
+	if (jQuery(".project__slider-active").length > 0) {
+		var swiper = new Swiper(".project__slider-active",{
+					loop: true,
+					slidesPerView: "auto",
+					spaceBetween: 40,
+					pagination: {
+						el: '.project-pagination',
+						clickable: true,
+					},
+					pagination: {
+					clickable: true,
+				},
+				// Navigation arrows
+				navigation: {
+					nextEl: '.project-button-next',
+					prevEl: '.project-button-prev',
+				},
+				breakpoints: {
+					0: {
+						slidesPerView: 1,
+					},
+					550: {
+						slidesPerView: 1,
+					},
+					768: {
+						slidesPerView: 2,
+					},
+					992: {
+						slidesPerView: 3,
+					},
+					1200: {
+						slidesPerView: 3,
+					}
+				}
+			}
+		  );
+	}
+
+	////////////////////////////////////////////////////
+	// 00. related__services-slider Js
+	if (jQuery(".related__services-slider").length > 0) {
+		var swiper = new Swiper(".related__services-slider",{
+			slidesPerView: 3,
+			spaceBetween: 30,
+			// direction: 'vertical',
+			loop: true,
+			autoplay: {
+					delay: 4000,
+			},
+			
+			// If we need pagination
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.services-button-next',
+				prevEl: '.services-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 2,
+				},
+				1200: {
+					slidesPerView: 3,
+				},
+				1400: {
+					slidesPerView: 3,
+				}
+			}
+		});
+	}
+
+	////////////////////////////////////////////////////
+	// 00. testimonial__slider-2 activation Js
+	if (jQuery(".testimonial__slider-2").length > 0) {
+		let services__slide = new Swiper('.testimonial__slider-2', {
+			slidesPerView: 1,
+			spaceBetween: 0,
+			slidesPerView: 1,
+			mousewheel: true,
+			// direction: 'vertical',
+			loop: true,
+			autoplay: {
+					delay: 6000,
+				},
+			
+			// If we need pagination
+			pagination: {
+				el: '.ts-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.bs-button-next',
+				prevEl: '.bs-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 1,
+				},
+				1200: {
+					slidesPerView: 1,
+				},
+				1400: {
+					slidesPerView: 1,
+					}
+				}
+		});
+
+	}
+
+	////////////////////////////////////////////////////
+	// 00. tp-blog__slider activation Js
+	if (jQuery(".tp-blog__slider").length > 0) {
+		let services__slide = new Swiper('.tp-blog__slider', {
+			slidesPerView: 1,
+			spaceBetween: 0,
+			loop: true,
+			autoplay: {
+			  delay: 3000,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: ".tp-blog-button-next",
+				prevEl: ".tp-blog-button-prev",
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 1,
+				},
+				1200: {
+					slidesPerView: 1,
+				},
+				1400: {
+					slidesPerView: 1,
+					}
+				}
+		});
+
+	}
+
+	////////////////////////////////////////////////////
+	// 00. testimonial__slider-3 activation Js
+	if (jQuery(".testimonial__slider-3").length > 0) {
+		let services__slide = new Swiper('.testimonial__slider-3', {
+			slidesPerView: 1,
+			spaceBetween: 0,
+			slidesPerView: 1,
+			mousewheel: false,
+			loop: true,
+			autoplay: {
+					delay: 6000,
+				},
+			
+			// If we need pagination
+			pagination: {
+				el: '.ts-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.ts-button-next',
+				prevEl: '.ts-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 1,
+				},
+				992: {
+					slidesPerView: 2,
+				},
+				1200: {
+					slidesPerView: 2,
+				},
+				1400: {
+					slidesPerView: 2,
+					}
+				}
+		});
+
+	}
+
+
+	////////////////////////////////////////////////////
+	// 00. testimonial__slider-3 activation Js
+	if (jQuery(".blog-slider__active").length > 0) {
+		let services__slide = new Swiper('.blog-slider__active', {
+			slidesPerView: 1,
+			spaceBetween: 30,
+			slidesPerView: 1,
+			mousewheel: false,
+			loop: true,
+			autoplay: {
+					delay: 6000,
+				},
+			
+			// If we need pagination
+			pagination: {
+				el: '.ts-pagination',
+				clickable: true,
+			},
+			// Navigation arrows
+			navigation: {
+				nextEl: '.blog-ts-button-next',
+				prevEl: '.blod-ts-button-prev',
+			},
+			
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				550: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 2,
+				},
+				992: {
+					slidesPerView: 3,
+				},
+				1200: {
+					slidesPerView: 4,
+				},
+				1400: {
+					slidesPerView: 4,
+					}
+				}
+		});
+
+	}
+
+	// Jquery Appear
+	//----------------------------------------------------------------------------------------
+	if ($('.progress-bar').length) {
+		$('.progress-bar').appear(function () {
+			var el = $(this);
+			var percent = el.data('width');
+			$(el).css('width', percent + '%');
+		}, {
+			accY: 0
+		});
+	}
+
+    //===== Progress Bar
+    if ($('.progress_line').length) {
+        $('.progress_line').appear(function () {
+            var el = $(this);
+            var percent = el.data('width');
+            $(el).css('width', percent + '%');
+        }, {
+            accY: 0
+        });
+    }
+
+	// Jquery Appear raidal
+	if (typeof ($.fn.knob) != 'undefined') {
+		$('.knob').each(function () {
+		var $this = $(this),
+		knobVal = $this.attr('data-rel');
+
+		$this.knob({
+		'draw': function () {
+			$(this.i).val(this.cv + '%')
+		}
+		});
+
+		$this.appear(function () {
+		$({
+			value: 0
+		}).animate({
+			value: knobVal
+		}, {
+			duration: 2000,
+			easing: 'swing',
+			step: function () {
+			$this.val(Math.ceil(this.value)).trigger('change');
+			}
+		});
+		}, {
+		accX: 0,
+		accY: -150
+		});
+	});
+	}
+
+	////////////////////////////////////////////////////
+    // 15. Portfolio Js
+	$('.grid').imagesLoaded( function() {
+		
+		var $grid = $(".grid").isotope({
+			// options
+		});
+		// filter items on button click
+		$(".portfolio-filter").on("click", "button", function () {
+			var filterValue = $(this).attr("data-filter");
+			$grid.isotope({ filter: filterValue });
+		});
+
+		//for menu active class
+		$(".portfolio-filter button").on("click", function (event) {
+			$(this).siblings(".active").removeClass("active");
+			$(this).addClass("active");
+			event.preventDefault();
+		});
+	});
+
+
+	// colse button
+	if (jQuery(".close-button").length > 0) {
+		const closeBtn = document.querySelector('.close-button');
+		closeBtn.addEventListener('click',function(){
+			const append = document.querySelector('.appoinment-cta-2');
+			append.classList.add('hide')
+		})
+	}
 
 
 })(jQuery);

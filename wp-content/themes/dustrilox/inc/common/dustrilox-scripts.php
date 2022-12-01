@@ -23,12 +23,14 @@ function dustrilox_scripts() {
     wp_enqueue_style( 'backtotop', DUSTRILOX_THEME_CSS_DIR . 'backtotop.css', [] );
     wp_enqueue_style( 'magnific-popup', DUSTRILOX_THEME_CSS_DIR . 'magnific-popup.css', [] );
     wp_enqueue_style( 'nice-select', DUSTRILOX_THEME_CSS_DIR . 'nice-select.css', [] );
+    wp_enqueue_style( 'flaticon', DUSTRILOX_THEME_CSS_DIR . 'flaticon', [] );
     wp_enqueue_style( 'font-awesome-pro', DUSTRILOX_THEME_CSS_DIR . 'font-awesome-pro.css', [] );
     wp_enqueue_style( 'jquery-fancybox', DUSTRILOX_THEME_CSS_DIR . 'spacing.css', [] );
     wp_enqueue_style( 'dustrilox-core', DUSTRILOX_THEME_CSS_DIR . 'dustrilox-core.css', [] );
     wp_enqueue_style( 'dustrilox-unit', DUSTRILOX_THEME_CSS_DIR . 'dustrilox-unit.css', [] );
     wp_enqueue_style( 'dustrilox-custom', DUSTRILOX_THEME_CSS_DIR . 'dustrilox-custom.css', [] );
     wp_enqueue_style( 'dustrilox-style', get_stylesheet_uri() );
+
 
     // all js
     wp_enqueue_script( 'bootstrap-bundle', DUSTRILOX_THEME_JS_DIR . 'bootstrap-bundle.js', [ 'jquery' ], '', true );
@@ -50,6 +52,7 @@ function dustrilox_scripts() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'dustrilox_scripts' );
+
 
 /*
 Register Fonts
