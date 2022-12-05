@@ -14,17 +14,3 @@ This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 */
 
-
-.tutor-container, .tutor-container-sm, .tutor-container-md, .tutor-container-lg, .tutor-container-xl, .tutor-container-xxl {
-	max-width: 1225px;
-}
-
-.cat__icon {
-	font-size: 25px;
-}
-.fea__icon {
-	font-size: 40px;
-}
-.research__features-icon span {
-	font-size: 25px;
-}

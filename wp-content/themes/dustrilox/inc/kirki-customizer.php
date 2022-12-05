@@ -268,25 +268,15 @@ function _header_top_fields( $fields ) {
         'section'  => 'header_top_setting',
         'default'  => esc_html__( '+(088) 234 567 899', 'dustrilox' ),
         'priority' => 10,
-    ];    
+    ];       
 
     // email
     $fields[] = [
         'type'     => 'text',
         'settings' => 'dustrilox_mail_id',
         'label'    => esc_html__( 'Mail ID', 'dustrilox' ),
-        'section'  => 'dustrilox_mail_id',
-        'default'  => esc_html__( 'info@dustrilox.com', 'dustrilox' ),
-        'priority' => 10,
-    ];    
-
-    // email
-    $fields[] = [
-        'type'     => 'text',
-        'settings' => 'dustrilox_address',
-        'label'    => esc_html__( 'Address', 'dustrilox' ),
         'section'  => 'header_top_setting',
-        'default'  => esc_html__( 'Moon ave, New York, 2020 NY US', 'dustrilox' ),
+        'default'  => esc_html__( 'info@educal.com', 'dustrilox' ),
         'priority' => 10,
     ];    
 
@@ -394,7 +384,7 @@ function _header_header_fields( $fields ) {
         'label'       => esc_html__( 'Header Secondary Logo', 'dustrilox' ),
         'description' => esc_html__( 'Header Logo Black', 'dustrilox' ),
         'section'     => 'section_header_logo',
-        'default'     => get_template_directory_uri() . '/assets/img/logo/logo-2.png',
+        'default'     => get_template_directory_uri() . '/assets/img/logo/logo-black.png',
     ];
 
     $fields[] = [

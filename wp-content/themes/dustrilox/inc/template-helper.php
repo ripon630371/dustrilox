@@ -96,8 +96,8 @@ add_action( 'dustrilox_language', 'dustrilox_language_list' );
 function dustrilox_header_logo() { ?>
       <?php
         $dustrilox_logo_on = function_exists( 'get_field' ) ? get_field( 'is_enable_sec_logo' ) : NULL;
-        $dustrilox_logo = get_template_directory_uri() . '/assets/img/logo/logo.png';
-        $dustrilox_logo_black = get_template_directory_uri() . '/assets/img/logo/logo-white.png';
+        $dustrilox_logo = get_template_directory_uri() . '/assets/img/logo/logo-white.png';
+        $dustrilox_logo_black = get_template_directory_uri() . '/assets/img/logo/logo-black.png';
 
         $dustrilox_site_logo = get_theme_mod( 'logo', $dustrilox_logo );
         $dustrilox_secondary_logo = get_theme_mod( 'seconday_logo', $dustrilox_logo_black );
